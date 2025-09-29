@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate Food Today - NeighborShare</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 保持原有的所有CSS样式不变 */
+        :root {
+            --primary: #FF7A45;
+            --primary-light: #FFA578;
+            --secondary: #2E5B96;
+            --secondary-light: #5A7FB0;
+            --accent: #34A853;
+            --light-bg: #F8F9FA;
+            --light-gray: #E9ECEF;
+            --dark-text: #333333;
+            --medium-text: #666666;
+            --light-text: #FFFFFF;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --radius: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: var(--dark-text);
+            line-height: 1.6;
+            background-color: var(--light-bg);
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--light-text);
+            box-shadow: var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            color: var(--primary);
+            font-size: 28px;
+        }
+
+        .logo-text {
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+            font-size: 24px;
+            color: var(--secondary);
+        }
+
+        .logo-text span {
+            color: var(--primary);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--dark-text);
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: var(--radius);
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            font-size: 16px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--light-text);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: var(--light-text);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--secondary-light);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            border: 2px solid var(--secondary);
+            color: var(--secondary);
+            background: transparent;
+        }
+
+        .btn-outline:hover {
+            background-color: var(--secondary);
+            color: var(--light-text);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(255, 122, 69, 0.85), rgba(46, 91, 150, 0.8)), url('https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--light-text);
+            padding: 180px 0 100px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Donation Section */
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            color: var(--medium-text);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .donation-container {
+            display: flex;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+
+        .donation-form-container {
+            flex: 1;
+            min-width: 300px;
+            background: var(--light-text);
+            border-radius: var(--radius);
+            padding: 40px;
+            box-shadow: var(--shadow);
+        }
+
+        .donation-info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--secondary);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--light-gray);
+            border-radius: var(--radius);
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .checkbox-group input {
+            margin-top: 5px;
+        }
+
+        .checkbox-group label {
+            font-weight: normal;
+            margin-bottom: 0;
+        }
+
+        .donation-guide {
+            background: var(--light-text);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+
+        .donation-guide h3 {
+            color: var(--secondary);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .accepted-items, .not-accepted-items {
+            margin-bottom: 25px;
+        }
+
+        .accepted-items h4, .not-accepted-items h4 {
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .accepted-items ul, .not-accepted-items ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .accepted-items li, .not-accepted-items li {
+            margin-bottom: 8px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .accepted-items li:before {
+            content: "✓";
+            color: var(--accent);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .not-accepted-items li:before {
+            content: "✗";
+            color: #e74c3c;
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .feature {
+            background: var(--light-text);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+
+        .feature-icon {
+            color: var(--primary);
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+
+        .feature h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+
+/* Logo Link Styles */
+.logo-link {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: opacity 0.3s;
+}
+
+.logo-link:hover {
+    opacity: 0.8;
+}
+
+/* Footer specific logo styles */
+footer .logo-link .logo-text {
+    color: var(--light-text) !important;
+}
+
+footer .logo-link .logo-text span {
+    color: var(--primary) !important;
+}
+        /* Success Message */
+        .success-message {
+            display: none;
+            background-color: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: var(--radius);
+            margin-top: 20px;
+            text-align: center;
+            border: 1px solid #c3e6cb;
+        }
+
+        .error-message {
+            display: none;
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: var(--radius);
+            margin-top: 20px;
+            text-align: center;
+            border: 1px solid #f5c6cb;
+        }
+
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--secondary);
+            color: var(--light-text);
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column a {
+            color: var(--light-text);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column a:hover {
+            color: var(--primary-light);
+        }
+
+/* 添加到现有的CSS中 */
+.footer-column .logo-text {
+    color: var(--light-text) !important; /* 确保在footer中显示为白色 */
+}
+
+.footer-column .logo-text span {
+    color: var(--primary) !important; /* Share部分保持橙色 */
+}
+
+/* 或者更具体的选择器 */
+footer .logo-text {
+    color: var(--light-text) !important;
+}
+
+footer .logo-text span {
+    color: var(--primary) !important;
+}
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        .social-icons a:hover {
+            background-color: var(--primary);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav ul {
+                gap: 15px;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .donation-container {
+                flex-direction: column;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <a href="index.html" class="logo-link">
+    <i class="fas fa-hands-helping logo-icon"></i>
+    <div class="logo-text">Neighbor<span>Share</span></div>
+</a>
+            </div>
+            <nav>
+                <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#impact">Our Impact</a></li>
+                    <li><a href="index.html#donation-volunteer">Donate Food</a></li>
+                    <li><a href="index.html#donation-volunteer">Volunteer</a></li>
+                    <li><a href="#about">About Us</a></li>
+                </ul>
+            </nav>
+            </nav>
+            
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Donate Food Today</h1>
+            <p>Your donation makes a difference. Schedule a pickup and help fight hunger in your community.</p>
+        </div>
+    </section>
+
+    <!-- Donation Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Schedule Your Donation Pickup</h2>
+                <p>Fill out the form below and our volunteers will collect your food donation</p>
+            </div>
+            <div class="donation-container">
+                <div class="donation-form-container">
+                    <h3>Donation Request Form</h3>
+                    <form id="donation-form">
+                        <div class="form-group">
+                            <label for="name">Full Name *</label>
+                            <input type="text" id="name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number *</label>
+                            <input type="tel" id="phone" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Street Address *</label>
+                            <input type="text" id="address" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="date">Preferred Pickup Date *</label>
+                            <input type="date" id="date" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="time">Preferred Pickup Time *</label>
+                            <select id="time" class="form-control" required>
+                                <option value="">Select a time</option>
+                                <option value="morning">Morning (9 AM - 12 PM)</option>
+                                <option value="afternoon">Afternoon (12 PM - 4 PM)</option>
+                                <option value="evening">Evening (4 PM - 7 PM)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="items">Types of Food Items (check all that apply) *</label>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="canned-goods" name="items" value="canned-goods">
+                                <label for="canned-goods">Canned Goods</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="dry-goods" name="items" value="dry-goods">
+                                <label for="dry-goods">Dry Goods (Pasta, Rice, Cereal)</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="fresh-produce" name="items" value="fresh-produce">
+                                <label for="fresh-produce">Fresh Produce</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="baked-goods" name="items" value="baked-goods">
+                                <label for="baked-goods">Baked Goods</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="dairy" name="items" value="dairy">
+                                <label for="dairy">Dairy Products</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="other" name="items" value="other">
+                                <label for="other">Other Non-Perishable Items</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="notes">Special Instructions (Optional)</label>
+                            <textarea id="notes" class="form-control" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block" id="submit-btn">Schedule My Pickup</button>
+                    </form>
+                    <div id="success-message" class="success-message">
+                        <i class="fas fa-check-circle"></i> <span id="success-text">Thank you for your donation! We've received your request and a volunteer will contact you soon to confirm pickup details.</span>
+                    </div>
+                    <div id="error-message" class="error-message">
+                        <i class="fas fa-exclamation-circle"></i> <span id="error-text">There was an error submitting your donation. Please try again.</span>
+                    </div>
+                </div>
+                <div class="donation-info">
+                    <div class="donation-guide">
+                        <h3>Donation Guidelines</h3>
+                        <div class="accepted-items">
+                            <h4>We Accept:</h4>
+                            <ul>
+                                <li>Unopened, non-expired canned goods</li>
+                                <li>Dry goods (pasta, rice, cereal)</li>
+                                <li>Unopened packaged foods</li>
+                                <li>Fresh produce (in good condition)</li>
+                                <li>Unopened baby food and formula</li>
+                                <li>Commercially packaged baked goods</li>
+                            </ul>
+                        </div>
+                        <div class="not-accepted-items">
+                            <h4>We Cannot Accept:</h4>
+                            <ul>
+                                <li>Homemade or prepared foods</li>
+                                <li>Expired or damaged items</li>
+                                <li>Opened packages</li>
+                                <li>Alcoholic beverages</li>
+                                <li>Medications or supplements</li>
+                                <li>Perishable items requiring refrigeration (unless coordinated in advance)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-clock feature-icon"></i>
+                        <h3>Quick & Easy Process</h3>
+                        <p>Our volunteers will arrive at your scheduled time, so you don't need to wait around. Just leave your donation in a visible spot if you won't be home.</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-shield-alt feature-icon"></i>
+                        <h3>Safe & Verified</h3>
+                        <p>All our volunteers undergo background checks and follow strict safety protocols to ensure a secure donation process.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <div class="logo">
+                        <a href="index.html" class="logo-link">
+    <i class="fas fa-hands-helping logo-icon"></i>
+    <div class="logo-text">Neighbor<span>Share</span></div>
+</a>
+                    </div>
+                
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <!-- <li><a href="index.html#how-it-works">How It Works</a></li>
+                        <li><a href="index.html#impact">Our Impact</a></li> -->
+                        <li><a href="volunteer.html">Volunteer</a></li>
+                        <li><a href="donate.html">Donate Food</a></li>
+                        <!-- <li><a href="index.html#about">About Us</a></li> -->
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">Food Safety Guidelines</a></li>
+                        <li><a href="#">Volunteer Handbook</a></li>
+                        <li><a href="#">Partner Food Banks</a></li>
+                        <!-- <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Blog</a></li> -->
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> info@neighborshare.club</li>
+                        <!-- <li><i class="fas fa-phone"></i> (555) 123-4567</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Community Drive, City, State 12345</li> -->
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2025 NeighborShare. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Set minimum date for pickup to today
+        const today = new Date();
+        const tomorrow = new Date(today);
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        const minDate = tomorrow.toISOString().split('T')[0];
+        document.getElementById('date').min = minDate;
+
+        // Form submission handling
+        document.getElementById('donation-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submit-btn');
+            const originalText = submitBtn.textContent;
+            
+            try {
+                // 显示加载状态
+                submitBtn.textContent = 'Submitting...';
+                submitBtn.disabled = true;
+                document.getElementById('donation-form').classList.add('loading');
+                
+                // 隐藏之前的消息
+                document.getElementById('success-message').style.display = 'none';
+                document.getElementById('error-message').style.display = 'none';
+                
+                // 收集表单数据
+                const formData = {
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    phone: document.getElementById('phone').value,
+                    address: document.getElementById('address').value,
+                    pickup_date: document.getElementById('date').value,
+                    pickup_time: document.getElementById('time').value,
+                    notes: document.getElementById('notes').value,
+                    items: []
+                };
+                
+                // 收集选中的物品
+                const itemCheckboxes = document.querySelectorAll('input[name="items"]:checked');
+                if (itemCheckboxes.length === 0) {
+                    throw new Error('Please select at least one food item type');
+                }
+                
+                itemCheckboxes.forEach(checkbox => {
+                    formData.items.push(checkbox.value);
+                });
+                
+                console.log('提交的数据:', formData);
+                
+                // 发送数据到后端API
+                const response = await fetch('http://localhost:5000/api/donate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    // 显示成功消息
+                    document.getElementById('success-text').textContent = 
+                        `${data.message} 您的捐赠ID: ${data.donation_id}`;
+                    document.getElementById('success-message').style.display = 'block';
+                    
+                    // 滚动到成功消息
+                    document.getElementById('success-message').scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center'
+                    });
+                    
+                    // 重置表单
+                    setTimeout(() => {
+                        this.reset();
+                        // 重新设置最小日期
+                        document.getElementById('date').min = minDate;
+                    }, 3000);
+                } else {
+                    throw new Error(data.message);
+                }
+                
+            } catch (error) {
+                console.error('Error:', error);
+                // 显示错误消息
+                document.getElementById('error-text').textContent = 
+                    `提交失败: ${error.message}`;
+                document.getElementById('error-message').style.display = 'block';
+                
+                // 滚动到错误消息
+                document.getElementById('error-message').scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                });
+            } finally {
+                // 恢复按钮状态
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+                document.getElementById('donation-form').classList.remove('loading');
+            }
+        });
+
+        // 实时验证表单
+        const form = document.getElementById('donation-form');
+        const inputs = form.querySelectorAll('input[required], select[required]');
+        
+        inputs.forEach(input => {
+            input.addEventListener('blur', () => {
+                if (!input.value.trim()) {
+                    input.style.borderColor = '#e74c3c';
+                } else {
+                    input.style.borderColor = '';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
