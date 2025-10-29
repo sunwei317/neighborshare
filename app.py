@@ -1,19 +1,28 @@
-from flask import Flask, request, jsonify
-import sqlite3
+from flask import Flask, request, jsonify, send_from_directory
 import json
 from flask_cors import CORS
+import os
+import sqlite3
 
 app = Flask(__name__)
 CORS(app)  # 允许跨域请求
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 def get_db_connection():
     conn = sqlite3.connect('neighborhood.db')
     conn.row_factory = sqlite3.Row
     return conn
 
-@app.route('/')
+@app.route('/index.html')
 def index():
-    return "NeighborShare API Server is running!"
+    return send_from_directory(BASE_DIR, 'index.html')
+
+
+@app.route('/donate.html')
+def serve_donate_page():
+    return send_from_directory(BASE_DIR, 'donate.html')
+
 
 # 处理捐赠表单提交
 @app.route('/api/donate', methods=['POST'])
@@ -58,6 +67,13 @@ def submit_donation():
             'success': False,
             'message': f'提交失败: {str(e)}'
         }), 500
+
+
+@app.route('/volunteer.html')
+def serve_volunteer_page():
+    return send_from_directory(BASE_DIR, 'volunteer.html')
+
+
 
 # 处理志愿者表单提交
 @app.route('/api/volunteer', methods=['POST'])
@@ -106,5 +122,10 @@ def submit_volunteer():
             'message': f'提交失败: {str(e)}'
         }), 500
 
+@app.route('/api/ping')
+def ping():
+    return jsonify({'status': 'ok'})
+
+
 if __name__ == '__main__':
-    app.run(debug=True, port=5000, host='0.0.0.0')
+    app.run(debug=True, port=8888, host='0.0.0.0')

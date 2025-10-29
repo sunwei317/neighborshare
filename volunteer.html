@@ -915,7 +915,7 @@
                     console.log('提交的志愿者数据:', formData);
                     
                     // 发送数据到后端API
-                    const response = await fetch('http://localhost:5000/api/volunteer', {
+                    const response = await fetch('/api/volunteer', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',

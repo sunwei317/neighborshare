@@ -862,99 +862,6 @@
             const minDate = tomorrow.toISOString().split('T')[0];
             document.getElementById('date').min = minDate;
 
-            // Form submission handling
-            // document.getElementById('donation-form').addEventListener('submit', async function(e) {
-            //     e.preventDefault();
-                
-            //     const submitBtn = document.getElementById('submit-btn');
-            //     const originalText = submitBtn.textContent;
-                
-            //     try {
-            //         // 显示加载状态
-            //         submitBtn.textContent = 'Submitting...';
-            //         submitBtn.disabled = true;
-            //         document.getElementById('donation-form').classList.add('loading');
-                    
-            //         // 隐藏之前的消息
-            //         document.getElementById('success-message').style.display = 'none';
-            //         document.getElementById('error-message').style.display = 'none';
-                    
-            //         // 收集表单数据
-            //         const formData = {
-            //             name: document.getElementById('name').value,
-            //             email: document.getElementById('email').value,
-            //             phone: document.getElementById('phone').value,
-            //             address: document.getElementById('address').value,
-            //             pickup_date: document.getElementById('date').value,
-            //             pickup_time: document.getElementById('time').value,
-            //             notes: document.getElementById('notes').value,
-            //             items: []
-            //         };
-                    
-            //         // 收集选中的物品
-            //         const itemCheckboxes = document.querySelectorAll('input[name="items"]:checked');
-            //         if (itemCheckboxes.length === 0) {
-            //             throw new Error('Please select at least one food item type');
-            //         }
-                    
-            //         itemCheckboxes.forEach(checkbox => {
-            //             formData.items.push(checkbox.value);
-            //         });
-                    
-            //         console.log('提交的数据:', formData);
-                    
-            //         // 发送数据到后端API
-            //         const response = await fetch('http://localhost:5000/api/donate', {
-            //             method: 'POST',
-            //             headers: {
-            //                 'Content-Type': 'application/json',
-            //             },
-            //             body: JSON.stringify(formData)
-            //         });
-                    
-            //         const data = await response.json();
-                    
-            //         if (data.success) {
-            //             // 显示成功消息
-            //             document.getElementById('success-text').textContent = 
-            //                 `${data.message} 您的捐赠ID: ${data.donation_id}`;
-            //             document.getElementById('success-message').style.display = 'block';
-                        
-            //             // 滚动到成功消息
-            //             document.getElementById('success-message').scrollIntoView({
-            //                 behavior: 'smooth',
-            //                 block: 'center'
-            //             });
-                        
-            //             // 重置表单
-            //             setTimeout(() => {
-            //                 this.reset();
-            //                 // 重新设置最小日期
-            //                 document.getElementById('date').min = minDate;
-            //             }, 3000);
-            //         } else {
-            //             throw new Error(data.message);
-            //         }
-                    
-            //     } catch (error) {
-            //         console.error('Error:', error);
-            //         // 显示错误消息
-            //         document.getElementById('error-text').textContent = 
-            //             `提交失败: ${error.message}`;
-            //         document.getElementById('error-message').style.display = 'block';
-                    
-            //         // 滚动到错误消息
-            //         document.getElementById('error-message').scrollIntoView({
-            //             behavior: 'smooth',
-            //             block: 'center'
-            //         });
-            //     } finally {
-            //         // 恢复按钮状态
-            //         submitBtn.textContent = originalText;
-            //         submitBtn.disabled = false;
-            //         document.getElementById('donation-form').classList.remove('loading');
-            //     }
-            // });
 
 
 // 更新的表单提交处理 - 添加更详细的错误处理
@@ -999,26 +906,26 @@ document.getElementById('donation-form').addEventListener('submit', async functi
         console.log('Submitting data:', formData);
         
         // 测试服务器连接
-        let serverAvailable = false;
-        try {
-            const testResponse = await fetch('http://localhost:5000/', {
-                method: 'GET',
-                timeout: 5000
-            });
-            serverAvailable = testResponse.ok;
-        } catch (testError) {
-            console.warn('Server connection test failed:', testError);
-        }
-        
-        if (!serverAvailable) {
-            throw new Error('Server is not available. Please make sure the backend server is running on port 5000.');
-        }
+        // Check backend availability
+let serverAvailable = false;
+
+try {
+  const response = await fetch('/api/ping', { method: 'GET' });
+  serverAvailable = response.ok;
+} catch (err) {
+  console.warn('Server connection test failed:', err);
+}
+
+if (!serverAvailable) {
+  throw new Error('Server is not available. Please make sure the backend server is running.');
+}
+
         
         // 发送数据到后端API - 添加超时处理
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 10000); // 10秒超时
         
-        const response = await fetch('http://localhost:5000/api/donate', {
+        const response = await fetch('/api/donate', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

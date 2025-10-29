@@ -63,6 +63,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 15px 0;
+            position: relative;
         }
 
         .logo {
@@ -85,6 +86,33 @@
 
         .logo-text span {
             color: var(--primary);
+        }
+
+        /* Hamburger Menu Styles */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            z-index: 1001;
+        }
+
+        .hamburger-line {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: var(--secondary);
+            margin: 3px 0;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        /* Navigation Styles */
+        nav {
+            display: flex;
+            align-items: center;
         }
 
         nav ul {
@@ -151,6 +179,16 @@
         .btn-outline:hover {
             background-color: var(--secondary);
             color: var(--light-text);
+        }
+
+        /* Mobile CTA Buttons */
+        .mobile-cta-buttons {
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+            padding: 20px;
+            border-top: 1px solid var(--light-gray);
+            margin-top: 10px;
         }
 
         /* Hero Section */
@@ -328,27 +366,28 @@
             margin-right: auto;
         }
 
-/* Logo Link Styles */
-.logo-link {
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    transition: opacity 0.3s;
-}
+        /* Logo Link Styles */
+        .logo-link {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: opacity 0.3s;
+        }
 
-.logo-link:hover {
-    opacity: 0.8;
-}
+        .logo-link:hover {
+            opacity: 0.8;
+        }
 
-/* Footer specific logo styles */
-footer .logo-link .logo-text {
-    color: var(--light-text) !important;
-}
+        /* Footer specific logo styles */
+        footer .logo-link .logo-text {
+            color: var(--light-text) !important;
+        }
 
-footer .logo-link .logo-text span {
-    color: var(--primary) !important;
-}
+        footer .logo-link .logo-text span {
+            color: var(--primary) !important;
+        }
+
         /* Footer */
         footer {
             background-color: var(--secondary);
@@ -393,23 +432,24 @@ footer .logo-link .logo-text span {
             color: var(--primary-light);
         }
 
-/* 添加到现有的CSS中 */
-.footer-column .logo-text {
-    color: var(--light-text) !important; /* 确保在footer中显示为白色 */
-}
+        /* 添加到现有的CSS中 */
+        .footer-column .logo-text {
+            color: var(--light-text) !important; /* 确保在footer中显示为白色 */
+        }
 
-.footer-column .logo-text span {
-    color: var(--primary) !important; /* Share部分保持橙色 */
-}
+        .footer-column .logo-text span {
+            color: var(--primary) !important; /* Share部分保持橙色 */
+        }
 
-/* 或者更具体的选择器 */
-footer .logo-text {
-    color: var(--light-text) !important;
-}
+        /* 或者更具体的选择器 */
+        footer .logo-text {
+            color: var(--light-text) !important;
+        }
 
-footer .logo-text span {
-    color: var(--primary) !important;
-}
+        footer .logo-text span {
+            color: var(--primary) !important;
+        }
+
         .social-icons {
             display: flex;
             gap: 15px;
@@ -441,15 +481,73 @@ footer .logo-text span {
 
         /* Responsive Styles */
         @media (max-width: 768px) {
-            .header-container {
+            /* Show hamburger menu on mobile */
+            .menu-toggle {
+                display: flex;
+            }
+
+            /* Hide desktop navigation and CTA buttons */
+            nav {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--light-text);
+                box-shadow: var(--shadow);
                 flex-direction: column;
-                gap: 15px;
+                z-index: 1000;
+                padding: 0;
             }
-            
+
+            nav.active {
+                display: flex;
+            }
+
             nav ul {
-                gap: 15px;
+                flex-direction: column;
+                gap: 0;
+                width: 100%;
             }
-            
+
+            nav ul li {
+                width: 100%;
+                border-bottom: 1px solid var(--light-gray);
+            }
+
+            nav a {
+                display: block;
+                padding: 15px 20px;
+                width: 100%;
+            }
+
+            nav a:hover {
+                background-color: var(--light-bg);
+            }
+
+            /* Show mobile CTA buttons */
+            .mobile-cta-buttons {
+                display: flex;
+            }
+
+            /* Hide desktop CTA buttons */
+            .cta-buttons {
+                display: none;
+            }
+
+            /* Hamburger menu animation */
+            .menu-toggle.active .hamburger-line:nth-child(1) {
+                transform: rotate(45deg) translate(6px, 6px);
+            }
+
+            .menu-toggle.active .hamburger-line:nth-child(2) {
+                opacity: 0;
+            }
+
+            .menu-toggle.active .hamburger-line:nth-child(3) {
+                transform: rotate(-45deg) translate(6px, -6px);
+            }
+
             .hero h1 {
                 font-size: 2.2rem;
             }
@@ -473,13 +571,23 @@ footer .logo-text span {
     <!-- Header -->
     <header>
         <div class="container header-container">
+            <!-- Logo on the left -->
             <div class="logo">
                 <a href="index.html" class="logo-link">
-    <i class="fas fa-hands-helping logo-icon"></i>
-    <div class="logo-text">Neighbor<span>Share</span></div>
-</a>
+                    <i class="fas fa-hands-helping logo-icon"></i>
+                    <div class="logo-text">Neighbor<span>Share</span></div>
+                </a>
             </div>
-            <nav>
+            
+            <!-- Hamburger menu on the right -->
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+            
+            <!-- Navigation Menu -->
+            <nav id="mainNav">
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="#how-it-works">How It Works</a></li>
@@ -488,8 +596,19 @@ footer .logo-text span {
                     <li><a href="index.html#donation-volunteer">Volunteer</a></li>
                     <li><a href="#about">About Us</a></li>
                 </ul>
+                
+                <!-- Mobile CTA Buttons -->
+                <div class="mobile-cta-buttons">
+                    <a href="donate.html" class="btn btn-primary">Donate Food</a>
+                    <a href="volunteer.html" class="btn btn-outline">Become a Volunteer</a>
+                </div>
             </nav>
-
+            
+            <!-- Desktop CTA Buttons
+            <div class="cta-buttons">
+                <a href="donate.html" class="btn btn-primary">Donate Food</a>
+                <a href="volunteer.html" class="btn btn-outline">Become a Volunteer</a>
+            </div> -->
         </div>
     </header>
 
@@ -612,9 +731,9 @@ footer .logo-text span {
                 <div class="footer-column">
                     <div class="logo">
                         <a href="index.html" class="logo-link">
-    <i class="fas fa-hands-helping logo-icon"></i>
-    <div class="logo-text">Neighbor<span>Share</span></div>
-</a>
+                            <i class="fas fa-hands-helping logo-icon"></i>
+                            <div class="logo-text">Neighbor<span>Share</span></div>
+                        </a>
                     </div>
             
                     <div class="social-icons">
@@ -628,11 +747,8 @@ footer .logo-text span {
                     <h3>Quick Links</h3>
                     <ul>
                         <li><a href="index.html">Home</a></li>
-                        <!-- <li><a href="index.html#how-it-works">How It Works</a></li>
-                        <li><a href="index.html#impact">Our Impact</a></li> -->
                         <li><a href="volunteer.html">Volunteer</a></li>
                         <li><a href="donate.html">Donate Food</a></li>
-                        <!-- <li><a href="index.html#about">About Us</a></li> -->
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -641,16 +757,12 @@ footer .logo-text span {
                         <li><a href="#">Food Safety Guidelines</a></li>
                         <li><a href="#">Volunteer Handbook</a></li>
                         <li><a href="#">Partner Food Banks</a></li>
-                        <!-- <li><a href="#">FAQ</a></li>
-                        <li><a href="#">Blog</a></li> -->
                     </ul>
                 </div>
                 <div class="footer-column">
                     <h3>Contact Us</h3>
                     <ul>
                         <li><i class="fas fa-envelope"></i> info@neighborshare.club</li>
-                        <!-- <li><i class="fas fa-phone"></i> (555) 123-4567</li>
-                        <li><i class="fas fa-map-marker-alt"></i> 123 Community Drive, City, State 12345</li> -->
                     </ul>
                 </div>
             </div>
@@ -661,60 +773,98 @@ footer .logo-text span {
     </footer>
 
     <script>
-        // Simple smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
+        // Mobile menu toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('menuToggle');
+            const navbar = document.getElementById('mainNav');
+            
+            if (menuToggle && navbar) {
+                menuToggle.addEventListener('click', function() {
+                    // Toggle menu visibility
+                    navbar.classList.toggle('active');
+                    menuToggle.classList.toggle('active');
+                    
+                    // Prevent background scrolling when menu is open
+                    document.body.style.overflow = navbar.classList.contains('active') ? 'hidden' : '';
+                });
                 
-                const targetId = this.getAttribute('href');
-                if(targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if(targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 100,
-                        behavior: 'smooth'
+                // Close menu when clicking on navigation links (mobile)
+                const navLinks = document.querySelectorAll('nav a');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        if (window.innerWidth <= 768) {
+                            navbar.classList.remove('active');
+                            menuToggle.classList.remove('active');
+                            document.body.style.overflow = '';
+                        }
                     });
-                }
+                });
+                
+                // Reset menu state on window resize
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 768) {
+                        navbar.classList.remove('active');
+                        menuToggle.classList.remove('active');
+                        document.body.style.overflow = '';
+                    }
+                });
+            }
+
+            // Simple smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if(targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if(targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
             });
+
+            // Add a simple animation to stats when they come into view
+            const observerOptions = {
+                threshold: 0.5
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const statNumbers = entry.target.querySelectorAll('.stat-number');
+                        statNumbers.forEach(stat => {
+                            const target = parseInt(stat.textContent.replace(/,/g, ''));
+                            let current = 0;
+                            const increment = target / 50;
+                            
+                            const updateNumber = () => {
+                                if (current < target) {
+                                    current += increment;
+                                    stat.textContent = Math.floor(current).toLocaleString();
+                                    setTimeout(updateNumber, 30);
+                                } else {
+                                    stat.textContent = target.toLocaleString();
+                                }
+                            };
+                            
+                            updateNumber();
+                        });
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            // Observe the impact section
+            const impactSection = document.querySelector('.impact');
+            if(impactSection) {
+                observer.observe(impactSection);
+            }
         });
-
-        // Add a simple animation to stats when they come into view
-        const observerOptions = {
-            threshold: 0.5
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const statNumbers = entry.target.querySelectorAll('.stat-number');
-                    statNumbers.forEach(stat => {
-                        const target = parseInt(stat.textContent.replace(/,/g, ''));
-                        let current = 0;
-                        const increment = target / 50;
-                        
-                        const updateNumber = () => {
-                            if (current < target) {
-                                current += increment;
-                                stat.textContent = Math.floor(current).toLocaleString();
-                                setTimeout(updateNumber, 30);
-                            } else {
-                                stat.textContent = target.toLocaleString();
-                            }
-                        };
-                        
-                        updateNumber();
-                    });
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-
-        // Observe the impact section
-        const impactSection = document.querySelector('.impact');
-        if(impactSection) {
-            observer.observe(impactSection);
-        }
     </script>
 </body>
 </html>
