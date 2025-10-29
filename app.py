@@ -19,7 +19,7 @@ def index():
     return send_from_directory(BASE_DIR, 'index.html')
 
 
-@app.route('/donate.html')
+@app.route('/donate')
 def serve_donate_page():
     return send_from_directory(BASE_DIR, 'donate.html')
 
@@ -69,7 +69,7 @@ def submit_donation():
         }), 500
 
 
-@app.route('/volunteer.html')
+@app.route('/volunteer')
 def serve_volunteer_page():
     return send_from_directory(BASE_DIR, 'volunteer.html')
 
